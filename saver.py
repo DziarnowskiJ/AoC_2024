@@ -70,13 +70,13 @@ def tokens(text):
     
 
 with open('../inputs/real/input_day_{day}.txt', 'r') as file:
-    lines = file.readlines()
+    lines = [i.rstrip("\n") for i in file.readlines()]
     encoded_lines = [BytesIO(line.encode('utf-8')) for line in lines]
     token_lines = [tokens(encoded_line) for encoded_line in encoded_lines]
     df = pd.DataFrame({{'input': lines, 'encode': encoded_lines, 'output': None}})
 
 with open('../inputs/sample/sample_input_day_{day}.txt', 'r') as file:
-    sample_lines = file.readlines()
+    sample_lines = [i.rstrip("\n") for i in file.readlines()]
     encoded_sample_lines = [BytesIO(line.encode('utf-8')) for line in sample_lines]
     token_sample_lines = [tokens(encoded_line) for encoded_line in encoded_sample_lines]
     sample_df = pd.DataFrame({{'input': sample_lines, 'encode': encoded_sample_lines, 'output': None}})
