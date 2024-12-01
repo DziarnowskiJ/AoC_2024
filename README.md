@@ -4,7 +4,7 @@ This is my repository for the annual [**Advent of Code**](https://adventofcode.c
 
 # Notes on each day's challenge
 ## [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1)
-The problem considered sorting lists.
+The problem considered simple operations on lists.
 
 First part required to find the absolute difference between items at the 
 same index in two sorted lists.
