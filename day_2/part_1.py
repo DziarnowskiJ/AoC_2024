@@ -1,9 +1,3 @@
-import tokenize
-from io import BytesIO
-
-import pandas as pd
-from functools import reduce
-
 with open('../inputs/real/input_day_2.txt', 'r') as file:
     lines = [i.rstrip("\n") for i in file.readlines()]
 
@@ -29,6 +23,7 @@ def check_line(line):
                 return False
     return True
 
+
 def ans(lines):
     val = 0
     for line in lines:
@@ -39,6 +34,7 @@ def ans(lines):
 
 def process(row):
     return ans(row)
+
 
 print("Sample output:", process(sample_lines))
 print("Answer:", process(lines))

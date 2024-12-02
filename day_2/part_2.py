@@ -1,9 +1,3 @@
-import tokenize
-from io import BytesIO
-
-import pandas as pd
-from functools import reduce
-
 with open('../inputs/real/input_day_2.txt', 'r') as file:
     lines = [i.rstrip("\n") for i in file.readlines()]
 
