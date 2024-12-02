@@ -33,16 +33,12 @@ def check_line(vals):
     return True
 
 
-def ans(lines):
+def process(lines):
     val = 0
     for line in lines:
         if any([check_line(sub_line) for sub_line in prep_line(line)]):
             val += 1
     return val
-
-
-def process(row):
-    return ans(row)
 
 
 print("Sample output:", process(sample_lines))
