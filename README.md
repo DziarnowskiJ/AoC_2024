@@ -35,3 +35,22 @@ Part 2:
                                     
 Total = 31                                    
 ```
+
+## [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2)
+Problem consisted of comparing values inside each list.
+
+First part of the exercises required checking whether the list is in order (either ascending or descending)
+and each item in the list differs by at least 1 and at most 3 from the adjacent one.   
+Part two introduced possibility of removing one value from the list in hopes it makes it valid.
+
+```
+Part 1:
+7 6 4 2 1 --> valid     --> each value decreases by 1 or 2
+1 2 7 8 9 --> not valid --> there's increase of 5 between 2 and 7
+9 7 6 3 4 --> not valid --> values are not in order
+
+Part 2:
+7 6 4 2 1 --> valid     --> valid from start
+1 2 7 8 9 --> not valid --> no matter which value is removed list is never valid
+9 7 6 3 4 --> valid     --> valid if 4 is removed
+```

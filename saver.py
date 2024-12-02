@@ -3,18 +3,32 @@ import datetime
 import os
 from decouple import config
 
-start_tag = '<pre><code>'
-end_tag = '</code></pre>'
-
 
 def get_code_position(text):
+    start_tag = '<pre><code>'
+    end_tag = '</code></pre>'
     start = text.rfind(start_tag) + len(start_tag)
     end = text.rfind(end_tag)
 
     return start, end
 
 
-def download_input(day, year=2023):
+def get_title(day, year):
+    base_url = f"https://adventofcode.com/{year}/day/{day}"
+    response = requests.get(base_url)
+    text = response.text
+
+    start_tag = '<h2>'
+    end_tag = '</h2>'
+    start = text.rfind(start_tag) + len(start_tag)
+    end = text.rfind(end_tag)
+
+    title = text[start + 4:end - 4]
+
+    return title
+
+
+def download_input(day, year):
     base_url = f"https://adventofcode.com/{year}/day/{day}"
     session_cookie = config('SESSION_COOKIE')
 
@@ -38,7 +52,7 @@ def download_input(day, year=2023):
     response = requests.get(base_url, headers=headers)
     start, end = get_code_position(response.text)
 
-    if start == len(start_tag) - 1 or end == -1:
+    if end == -1:
         raise Exception(f"Failed to download sample input for Day {day}. Sample code not found")
     else:
         save_path = f"inputs/sample/sample_input_day_{day}.txt"
@@ -47,9 +61,10 @@ def download_input(day, year=2023):
         print(f"Sample input file for Day {day} saved as {save_path}")
 
 
-def create_day(day):
+def create_day(day, year):
     save_path = f"day_{day}/part_1.py"
     save_path_2 = f"day_{day}/part_2.py"
+    readme_path = 'README.md'
 
     python_file = f"""import tokenize
 from io import BytesIO
@@ -109,6 +124,15 @@ print("Answer:", process(token_lines))
 
 """
 
+    readme = f"""\n## [{get_title(day, year)}](https://adventofcode.com/{year}/day/{day})
+
+```
+Part 1:
+
+Part 2:
+```
+"""
+
     if not os.path.exists(f"day_{day}"):
         os.makedirs(f"day_{day}")
 
@@ -120,7 +144,12 @@ print("Answer:", process(token_lines))
         with open(save_path_2, "w") as file:
             file.write('')
 
+    with open(readme_path, 'a') as file:
+        file.write(readme)
+
 
 if __name__ == "__main__":
-    create_day(datetime.datetime.now().day)
-    download_input(datetime.datetime.now().day, datetime.datetime.now().year)
+    day = datetime.datetime.now().day
+    year = datetime.datetime.now().year
+    create_day(day, year)
+    download_input(day, year)
