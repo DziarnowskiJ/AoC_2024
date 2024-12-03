@@ -36,4 +36,3 @@ def process(line):
 
 print("Sample output:", process(sample_lines))
 print("Answer:", process(lines))
-
