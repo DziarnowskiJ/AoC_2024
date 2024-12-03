@@ -54,3 +54,27 @@ Part 2:
 1 2 7 8 9 --> not valid --> no matter which value is removed list is never valid
 9 7 6 3 4 --> valid     --> valid if 4 is removed
 ```
+
+## [Day 3: Mull It Over](https://adventofcode.com/2024/day/3)
+Challenge required extracting values based on regex.
+
+First part of the challenge consisted of extracting parts that had a 
+form of `mul(X,Y)` where _X_ and _Y_ are 1-3 digit numbers. Then _X_ and _Y_ in each
+part had to be multiplied and added together to produce result.
+
+Second part was similar, but strings `do()` and `don't()` determined whether 
+parts following it should be ignored
+
+```
+Part 1:
+xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
+ ¯¯¯¯¯¯¯¯                   ¯¯¯¯¯¯¯¯            ¯¯¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯
+Extarcted values: mul(2,4), mul(5,5), mul(11,8), mul(8,5)
+Result: 2*4 + 5*5 + 11*8 + 8*5 = 161
+ 
+Part 2:
+xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
+ ¯¯¯¯¯¯¯¯           ¯¯¯¯¯¯¯                                ¯¯¯¯ ¯¯¯¯¯¯¯¯
+Extarcted values: mul(2,4), mul(8,5)
+Result: 2*4 + 8*5 = 48
+```
