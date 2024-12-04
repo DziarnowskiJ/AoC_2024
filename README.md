@@ -78,3 +78,30 @@ xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
 Extarcted values: mul(2,4), mul(8,5)
 Result: 2*4 + 8*5 = 48
 ```
+
+## [Day 4: Ceres Search](https://adventofcode.com/2024/day/4)
+Task consisted of searching elements in a grid 
+
+First part of the task was a crossword puzzle. The only word to find was the phrase `XMAS`.
+The goal was to find the number of all instances of that word, knowing that it can be written
+both normally or backwards in horizontal, vertical or diagonal directions.
+  
+Second part was _conceptually_ the same, however it required find a different _'phrase'_. 
+Goal was to find two words `MAS` in a shape of `X`
+
+```
+Part 1 - possible phrases (8 in total): 
+S..S..S
+.A.A.A.
+..MMM..
+SAMXAS.
+..MMM..
+.A.A.A.
+S..S..S
+
+Part 2 - possible phrases (4 in total):
+M.S...S.M...M.M...S.S
+.A.....A.....A.....A.
+M.S...S.M...S.S...M.M
+
+```

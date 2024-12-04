@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import IntEnum
 from typing import Self
 
 
 # compass points
-class Direction(Enum):
+class Direction(IntEnum):
     N = 0
     NE = 1
     E = 2
@@ -19,13 +19,15 @@ class Direction(Enum):
 
 # the direction immediately to the left
 def turn_left(direction: Direction) -> Direction:
-    left_turns = [Direction.W, Direction.NW, Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW]
+    left_turns = [Direction.W, Direction.NW, Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S,
+                  Direction.SW]
     return left_turns[(direction.value - 1) % 8]
 
 
 # the direction immediately to the right
 def turn_right(direction: Direction) -> Direction:
-    right_turns = [Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW, Direction.N, Direction.NE]
+    right_turns = [Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW, Direction.N,
+                   Direction.NE]
     return right_turns[(direction.value + 1) % 8]
 
 
@@ -91,6 +93,27 @@ def one_step(direction: Direction) -> Point:
         Direction.NW: Point(-1, 1),
     }
     return steps[direction]
+
+
+def get_one_step_direction(point1: Point, point2: Point) -> Direction | None:
+    diff = point2 - point1
+
+    direction_map = {
+        (0, 1): Direction.N,
+        (1, 1): Direction.NE,
+        (1, 0): Direction.E,
+        (1, -1): Direction.SE,
+        (0, -1): Direction.S,
+        (-1, -1): Direction.SW,
+        (-1, 0): Direction.W,
+        (-1, 1): Direction.NW
+    }
+
+    return direction_map.get(diff.key)
+
+
+def get_opposite_direction(direction: Direction) -> Direction:
+    return Direction((direction + 4) % 8)
 
 
 def read_grid(text_grid: str, origin: Direction = Direction.NE) -> [(Point, str)]:
@@ -195,8 +218,10 @@ def grid_dimensions(grid: dict[Point, str]):
 
     return top_left, bottom_right
 
+
 def grid_position(char: str, grid: dict[Point, str]):
     return [key for key, value in grid.items() if value == char]
+
 
 def points_to_text(grid):
     # Find the maximum and minimum coordinates to determine the size of the grid
@@ -220,9 +245,10 @@ def points_to_text(grid):
 
     return text
 
-def empty_grid(nw_point, se_point, char = '.'):
+
+def empty_grid(nw_point, se_point, char='.'):
     grid = dict()
-    for i in range(nw_point.x,se_point.x + 1, 1):
+    for i in range(nw_point.x, se_point.x + 1, 1):
         for j in range(nw_point.y, se_point.y - 1, -1):
             grid[Point(i, j)] = char
     return grid
