@@ -105,3 +105,34 @@ M.S...S.M...M.M...S.S
 M.S...S.M...S.S...M.M
 
 ```
+
+## [Day 5: Print Queue](https://adventofcode.com/2024/day/5)
+Analysis and custom sort for list
+
+Input for the challenge was split into two parts:
+- List of order rules in form of `X|Y` determining that if both
+_X_ and _Y_ appear in the list, _X_ has to be before _Y_
+- Lines to perform operations on - `X,Y,Z` 
+
+First part of the exercise required to analyse each line and determine
+whether they are following the proper order and follow all rules.
+Second part required to fix the lines that were in incorrect order.
+
+```
+Order rules:
+47|53       
+97|75       
+97|61       
+
+Part 1:
+Lines:               Relevant rules        Result
+97,61,53,29,13   ->  97|61              -> Correct
+97,61,75         ->  97|75 97|61        -> Correct
+75,97,47,61,53   ->  47|53 97|75 97|61  -> Incorrect - 75 should be after 97
+61,13,29         ->  None               -> Correct
+
+Part 2:
+Incorrect lines:     Relevant rules        Fixed line
+75,97,47,61,53   ->  47|53 97|75 97|61  -> 97,75,47,61,5 
+
+```
