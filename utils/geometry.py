@@ -19,16 +19,12 @@ class Direction(IntEnum):
 
 # the direction immediately to the left
 def turn_left(direction: Direction) -> Direction:
-    left_turns = [Direction.W, Direction.NW, Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S,
-                  Direction.SW]
-    return left_turns[(direction.value - 1) % 8]
+    return Direction((direction - 2) % 8)
 
 
 # the direction immediately to the right
 def turn_right(direction: Direction) -> Direction:
-    right_turns = [Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW, Direction.N,
-                   Direction.NE]
-    return right_turns[(direction.value + 1) % 8]
+    return Direction((direction + 2) % 8)
 
 
 # x and y coordinates in two-dimensional space
