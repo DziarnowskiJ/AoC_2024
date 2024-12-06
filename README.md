@@ -136,3 +136,11 @@ Incorrect lines:     Relevant rules        Fixed line
 75,97,47,61,53   ->  47|53 97|75 97|61  -> 97,75,47,61,5 
 
 ```
+
+## [Day 6: Guard Gallivant](https://adventofcode.com/2024/day/6)
+
+```
+Part 1:
+
+Part 2:
+```
