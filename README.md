@@ -138,9 +138,49 @@ Incorrect lines:     Relevant rules        Fixed line
 ```
 
 ## [Day 6: Guard Gallivant](https://adventofcode.com/2024/day/6)
+Path finding and loops in a grid
+
+First part of the exercise consisted of traveling in straight lines through the grid, starting at position `^`. 
+The goal was to find the number of distinct places visited before moving out of the bounds of the grid.
+At every collision with `#`, the direction of movement was rotated to the right.
+
+Second part required to find all possible spots to place a single obstacle 
+that would cause path to loop indefinitely.
 
 ```
 Part 1:
+....#.....
+....+---+#
+....|...|.
+..#.|...|.
+..+-+-+#|.    -> 41 distinct places 
+..|.|.|.|.
+.#+-^-+-+.
+.+----++#.
+#+----++..
+......#v..
 
 Part 2:
+....#.....      ....#.....      ....#.....
+....+---+#      ....+---+#      ....+---+#
+....|...|.      ....|...|.      ....|...|.
+..#.|...|.      ..#.|...|.      ..#.|...|.
+....|..#|.      ..+-+-+#|.      ..+-+-+#|.
+....|...|.      ..|.|.|.|.      ..|.|.|.|.
+.#.O^---+.      .#+-^-+-+.      .#+-^-+-+.
+........#.      ......O.#.      .+----+O#.
+#.........      #.........      #+----+...
+......#...      ......#...      ......#...
+                                                --> 6 possible spots
+....#.....      ....#.....      ....#.....
+....+---+#      ....+---+#      ....+---+#
+....|...|.      ....|...|.      ....|...|.
+..#.|...|.      ..#.|...|.      ..#.|...|.
+..+-+-+#|.      ..+-+-+#|.      ..+-+-+#|.
+..|.|.|.|.      ..|.|.|.|.      ..|.|.|.|.
+.#+-^-+-+.      .#+-^-+-+.      .#+-^-+-+.
+..|...|.#.      ....|.|.#.      .+----++#.
+#O+---+...      #..O+-+...      #+----++..
+......#...      ......#...      ......#O..
+
 ```
