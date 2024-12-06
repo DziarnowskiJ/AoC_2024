@@ -14,20 +14,17 @@ def get_grid(lines):
 def process(line):
     grid = get_grid(line)
     guard_pos = grid_position('^', grid)[0]
-    grid[guard_pos] = 'X'
     guard_dir = Direction.N
-    counter = 1
+    counter = {guard_pos}
     while is_in_grid(guard_pos + one_step(guard_dir), grid):
         if grid[guard_pos + one_step(guard_dir)] == '#':
             guard_dir = Direction((guard_dir + 2) % 8)
         else:
-            grid[guard_pos] = 'X'
             guard_pos = guard_pos + one_step(guard_dir)
-            if grid[guard_pos] != 'X':
-                counter += 1
+            counter.add(guard_pos)
 
-    return counter
+    return len(counter)
+
 
 print("Sample output:", process(sample_lines))
 print("Answer:", process(lines))
-
