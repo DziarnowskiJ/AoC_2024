@@ -185,3 +185,28 @@ Part 2:
 
 ```
 
+
+## [Day 7: Bridge Repair](https://adventofcode.com/2024/day/7)
+Regression with basic math expressions
+
+First part presented the list of equations in form `T: X Y Z`, where _T_ was the target number
+to be achieved by performing multiplication and addition on the remaining numbers. 
+Operators had to be always evaluated left-to-right, not according to precedence rules.
+
+Second part of the challenge introduced new operation - concatenation (`||`). This allowed
+the numbers to be added together as a string instead of number.
+
+```
+Part 1:
+190: 10 19      -> 190 = 10 * 19
+3267: 81 40 27  -> 3267 = 81 * 40 + 27
+83: 17 5        -> Not possible
+156: 15 6       -> Not possible
+7290: 6 8 6 15  -> Not possible
+292: 11 6 16 20 -> 292 = 11 + 6 * 16 + 20
+
+Part 2:
+83: 17 5        -> Still not possible
+156: 15 6       -> 156 = 15 || 6
+7290: 6 8 6 15  -> 7290 = 6 * 8 || 6 * 15
+```
