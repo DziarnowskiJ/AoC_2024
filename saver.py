@@ -66,61 +66,21 @@ def create_day(day, year):
     save_path_2 = f"day_{day}/part_2.py"
     readme_path = 'README.md'
 
-    python_file = f"""import tokenize
-from io import BytesIO
-
-import pandas as pd
-from functools import reduce
-
-
-def tokens(text):
-    tok = tokenize.tokenize(text.readline)
-    name_tuples = [
-        (tokenize.tok_name[token.type],
-         (int(token.string) if token.type == tokenize.NUMBER else token.string))
-        for token in tok
-        if token.type not in {{tokenize.ENCODING, tokenize.NEWLINE, tokenize.ENDMARKER, tokenize.NL}}]
-    text.seek(0)
-    return name_tuples
-    
-
+    python_file = f"""
 with open('../inputs/real/input_day_{day}.txt', 'r') as file:
     lines = [i.rstrip("\\n") for i in file.readlines()]
-    encoded_lines = [BytesIO(line.encode('utf-8')) for line in lines]
-    token_lines = [tokens(encoded_line) for encoded_line in encoded_lines]
-    df = pd.DataFrame({{'input': lines, 'encode': encoded_lines, 'output': None}})
 
 with open('../inputs/sample/sample_input_day_{day}.txt', 'r') as file:
     sample_lines = [i.rstrip("\\n") for i in file.readlines()]
-    encoded_sample_lines = [BytesIO(line.encode('utf-8')) for line in sample_lines]
-    token_sample_lines = [tokens(encoded_line) for encoded_line in encoded_sample_lines]
-    sample_df = pd.DataFrame({{'input': sample_lines, 'encode': encoded_sample_lines, 'output': None}})
-
-
-
-
+  
+  
+  
     
-    
-    
-    
-    
-def process(tokens_line):
-    return tokens_line
+def process(lines):
+    return lines
 
-
-def get_result(row):
-    functions = [tokens]
-    result = reduce(lambda x, f: f(x), functions, row)
-    return result
-
-
-sample_df['output'] = sample_df['encode'].apply(get_result)
-df['output'] = df['encode'].apply(get_result)
-print("Sample output:", sample_df['output'].sum())
-print("Answer:", df['output'].sum())
-
-print("Sample output:", process(token_sample_lines))
-print("Answer:", process(token_lines))
+print("Sample output:", process(sample_lines))
+print("Answer:", process(lines))
 
 """
 
