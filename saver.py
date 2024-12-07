@@ -68,7 +68,7 @@ def create_day(day, year):
 
     python_file = f"""
 with open('../inputs/real/input_day_{day}.txt', 'r') as file:
-    lines = [i.rstrip("\\n") for i in file.readlines()]
+    input_lines = [i.rstrip("\\n") for i in file.readlines()]
 
 with open('../inputs/sample/sample_input_day_{day}.txt', 'r') as file:
     sample_lines = [i.rstrip("\\n") for i in file.readlines()]
@@ -80,7 +80,7 @@ def process(lines):
     return lines
 
 print("Sample output:", process(sample_lines))
-print("Answer:", process(lines))
+print("Answer:", process(input_lines))
 
 """
 
