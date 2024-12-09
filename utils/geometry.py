@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Self
+from typing_extensions import Self
 
 
 # compass points
