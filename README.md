@@ -251,3 +251,35 @@ T.........                T....#....
 ..........                ..........
 
 ```
+
+## [Day 9: Disk Fragmenter](https://adventofcode.com/2024/day/9)
+Advanced list manipulation and reordering
+
+Challenges input was a single line of digits representing files and free space on the disk. 
+The digits alternate between indicating the length of a file and the length of free space.
+Each file on disk has an ID number based on the order of the files as they appear before they are rearranged.
+Part one required to unpack the disk and move files one at a time from the end of the disk to the leftmost free space block.
+Second part, instead of moving one file part required moving the whole file block. 
+
+```
+Part 1:
+Input: 12345
+
+Unpacking and sorting:
+0..111....22222
+02.111....2222.
+022111....222..
+0221112...22...
+02211122..2....
+022111222......
+
+Part 2:
+Input: 2333133121414131402
+
+Unpacking and sorting:
+00...111...2...333.44.5555.6666.777.888899
+0099.111...2...333.44.5555.6666.777.8888..
+0099.1117772...333.44.5555.6666.....8888..
+0099.111777244.333....5555.6666.....8888..
+00992111777.44.333....5555.6666.....8888..
+```
