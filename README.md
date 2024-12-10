@@ -283,3 +283,31 @@ Unpacking and sorting:
 0099.111777244.333....5555.6666.....8888..
 00992111777.44.333....5555.6666.....8888..
 ```
+
+## [Day 10: Hoof It](https://adventofcode.com/2024/day/10)
+Simple path finding in a grid
+
+Input for the puzzle was a topographical map with numbers 0-9 determining the height of the point.
+The only possible move on that map is in 4 cardinal directions onto the point that is one higher than the current position.
+The goal of the first part was to find number of reachable points with height `9` starting at each point with height `0`.
+Second part asked about number of distinct paths to that point instead.
+
+```
+Part 1:
+0..0...                     0......   ...0...   .......  
+...1210    reachable 9s     .......   .......   ......0  
+...2345     for each 0      .......   .......   .......   
+6543456  ---------------->  .......   .......   .......  
+7..4..7                     .......   .......   .......  
+8..5..8                     .......   .......   .......  
+9876..9                     .......   9.....9   9.....9  
+
+Part 2:
+.....0.                     .....0.   .....0.   .....0.
+..4321.   distinct paths    ..4321.   .....1.   .....1.
+..5..2.  ---------------->  ..5....   .....2.   .....2.
+..6543.                     ..6....   ..6543.   .....3.
+..7..4.                     ..7....   ..7....   .....4.
+..8765.                     ..8....   ..8....   ..8765.
+..9....                     ..9....   ..9....   ..9....
+```

@@ -70,10 +70,10 @@ def create_day(day, year):
 import platform
 base_path = '..' if platform.python_implementation() == 'CPython' else '.'
 
-with open(base_path + /inputs/real/input_day_{day}.txt', 'r') as file:
+with open(base_path + '/inputs/real/input_day_{day}.txt', 'r') as file:
     input_lines = [i.rstrip("\\n") for i in file.readlines()]
 
-with open(base_path + /inputs/sample/sample_input_day_{day}.txt', 'r') as file:
+with open(base_path + '/inputs/sample/sample_input_day_{day}.txt', 'r') as file:
     sample_lines = [i.rstrip("\\n") for i in file.readlines()]
   
   
