@@ -63,7 +63,7 @@ form of `mul(X,Y)` where _X_ and _Y_ are 1-3 digit numbers. Then _X_ and _Y_ in 
 part had to be multiplied and added together to produce result.
 
 Second part was similar, but strings `do()` and `don't()` determined whether 
-parts following it should be ignored
+parts following it should be ignored.
 
 ```
 Part 1:
@@ -87,7 +87,7 @@ The goal was to find the number of all instances of that word, knowing that it c
 both normally or backwards in horizontal, vertical or diagonal directions.
   
 Second part was _conceptually_ the same, however it required find a different _'phrase'_. 
-Goal was to find two words `MAS` in a shape of `X`
+Goal was to find two words `MAS` in a shape of `X`.
 
 ```
 Part 1 - possible phrases (8 in total): 
@@ -219,7 +219,7 @@ The first part required finding distinct locations of `antinodes`. Those are the
 of two nodes of the same type but twice as far from each other than the original nodes. 
 
 Second part changed the condition of forming antinodes - now a pair of nodes create as many antinodes
-as possible, all located at `X` times the distance between original nodes `(-inf < X < inf and X is integer)` 
+as possible, all located at `X` times the distance between original nodes `(-inf < X < inf and X is integer)`. 
 
 ```
 Part 1:
@@ -310,4 +310,45 @@ Part 2:
 ..7..4.                     ..7....   ..7....   .....4.
 ..8765.                     ..8....   ..8....   ..8765.
 ..9....                     ..9....   ..9....   ..9....
+```
+
+## [Day 11: Plutonian Pebbles](https://adventofcode.com/2024/day/11)
+Dealing with quickly expanding lists
+
+The puzzle presented a line of numbers and rules for a special `blink` operation. 
+`Blink` is a function modifying a number that can preform 3 different operations based on the value of the number:
+1) `0 -> 1` &emsp;&emsp;&emsp;&emsp;- If number is _0_ return _1_
+2) `XY -> X, Y` &emsp;&emsp;- Else if length of the number is even, split that number into two parts
+3) `Z -> 2024 * Z` &ensp;- Else multiply the number by _2024_
+
+Both parts of the challenge asked for the amount of numbers after _X_ blinks. 
+For first part it was _25_, for the second - _75_.
+
+```
+Initial arrangement:
+125 17
+
+After 1 blink:      --> 3 numbers
+253000 1 7
+
+After 2 blinks:     --> 4 numbers
+253 0 2024 14168
+
+After 3 blinks:     --> 5 numbers
+512072 1 20 24 28676032
+
+After 4 blinks:     --> 9 numbers
+512 72 2024 2 0 2 4 2867 6032
+
+After 5 blinks:     --> 13 numbers
+1036288 7 2 20 24 4048 1 4048 8096 28 67 60 32
+
+After 6 blinks:     --> 22 numbers
+2097446912 14168 4048 2 0 2 4 40 48 2024 40 48 80 96 2 8 6 7 6 0 3 2
+
+...
+
+After 25 blinks:     --> 55312 numbers
+...
+After 75 blinks:     --> 65601038650482 numbers
 ```
