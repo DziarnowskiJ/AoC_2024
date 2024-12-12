@@ -352,3 +352,28 @@ After 25 blinks:     --> 55312 numbers
 ...
 After 75 blinks:     --> 65601038650482 numbers
 ```
+
+## [Day 12: Garden Groups](https://adventofcode.com/2024/day/12)
+Splitting grid into regions and determining number of sides of a shape
+
+Another challenge with grid as an input. This time the goal was to split
+it into the smaller areas that contain the same character. 
+Part one required to get the size of the area (number of characters in a region) and its perimeter.
+Part two instead of the perimeter asked for a number of sides.
+
+```
+           
+                                            +-+-+-+-+      size 4    +-+      size 1                
+                                            |A A A A|  --> per. 10   |D|  --> per. 4  
+                    ┌───────┐               +-+-+-+-+      sides 4   +-+      sides 4        
+                    |A A A A|                                                                         
+AAAA                ├───┬─┬─┤               +-+-+                      +-+                  
+BBCD    regions     |B B|C|D|    values     |B B|      size 4          |C|        size 4 
+BBCC   --------->   |   | └─┤   -------->   +   +  --> per. 8          + +-+  --> per. 10        
+EEEC                |B B|C C|               |B B|      sides 4         |C C|      sides 8                    
+                    └───┴─┐ |               +-+-+                      +-+ +                    
+                    |E E E|C|                                            |C|                    
+                    └─────┴─┘               +-+-+-+      size 3          +-+                    
+                                            |E E E|  --> per. 6                               
+                                            +-+-+-+      sides 4                                     
+```
