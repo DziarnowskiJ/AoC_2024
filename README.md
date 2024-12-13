@@ -377,3 +377,41 @@ EEEC                |B B|C C|               |B B|      sides 4         |C C|    
                                             |E E E|  --> per. 6                               
                                             +-+-+-+      sides 4                                     
 ```
+
+## [Day 13: Claw Contraption](https://adventofcode.com/2024/day/13)
+Linear algebra and system of equations
+
+Challenge described the set of configurations for claw machines 
+and their unusual controls. Instead of joysticks, these machines operate 
+using buttons A and B, each causing the claw to move a specific distance 
+along the X and Y axes. To win a prize, the claw must be perfectly 
+aligned above it in both axes. This means that the input was basically 
+a set of systems of equations requiring to solve for A and B.
+
+
+The solution for both parts involved finding the sum of results of `3A + B`
+for each winning machine. Some machines were not able to generate the prize
+as the number of button presses to align the claw wasn't an integer number
+ 
+Part two differed only slightly to part one - `10000000000000` was added
+to both coordinates of the prize.
+
+```
+Part 1:
+Button A: X+94, Y+34
+Button B: X+22, Y+67
+Prize: X=8400, Y=5400       --> A = 80, B = 40
+
+Button A: X+26, Y+66
+Button B: X+67, Y+21
+Prize: X=12748, Y=12176     --> Not achievable for {A, B ∈ Z} 
+
+Part 2:
+Button A: X+94, Y+34
+Button B: X+22, Y+67
+Prize: X=10000000008400, Y=10000000005400   --> Not achievable for {A, B ∈ Z}
+
+Button A: X+26, Y+66
+Button B: X+67, Y+21
+Prize: X=10000000012748, Y=10000000012176   --> A = 118679050709, B = 103199174542
+```
