@@ -1,7 +1,6 @@
 ### Python template
 .env
 inputs/real
-saver.py
 
 .idea/
 

@@ -30,7 +30,7 @@ def bfs(start: Point, goal: Point, grid: dict[Point, str],
 
 
 def dfs(start: Point, goal: Point, grid: dict[Point, str],
-        is_valid_move: Callable[[str, str], bool], diagonal: bool = False) -> list[Point]:
+        is_valid_move: Callable[[str, str], bool] = lambda x, y: True, diagonal: bool = False) -> list[Point]:
     stack = [(start, [start])]
     visited = set()
 
@@ -55,7 +55,7 @@ def dfs(start: Point, goal: Point, grid: dict[Point, str],
 
 
 def dijkstra(start: Point, goal: Point, grid: dict[Point, str],
-             is_valid_move: Callable[[str, str], bool], diagonal: bool = False) -> (list[Point], set[Point]):
+             is_valid_move: Callable[[str, str], bool] = lambda x, y: True, diagonal: bool = False) -> (list[Point], set[Point]):
     priority_queue = [(0, start, [start])]
     visited = set()
 
@@ -74,6 +74,31 @@ def dijkstra(start: Point, goal: Point, grid: dict[Point, str],
         for neighbor, value in neighbors.items():
             if neighbor not in visited and is_valid_move(grid[current], value):
                 new_distance = current_distance + 1  # Assuming unit cost for each step
+                heapq.heappush(priority_queue, (new_distance, neighbor, path + [neighbor]))
+
+    # If no path is found
+    return [], visited
+
+def dijkstra_weighted(start: Point, goal: Point, grid: dict[Point, str],
+             is_valid_move: Callable[[str, str], bool] = lambda x, y: True, diagonal: bool = False) -> (list[Point], set[Point]):
+    priority_queue = [(0, start, [start])]
+    visited = set()
+
+    while priority_queue:
+        current_distance, current, path = heapq.heappop(priority_queue)
+
+        if current == goal:
+            return path, visited
+
+        if current in visited:
+            continue
+
+        visited.add(current)
+
+        neighbors = get_neighbours_dict(current, grid, diagonal=diagonal)
+        for neighbor, value in neighbors.items():
+            if neighbor not in visited and is_valid_move(grid[current], value):
+                new_distance = current_distance + int(grid[neighbor])
                 heapq.heappush(priority_queue, (new_distance, neighbor, path + [neighbor]))
 
     # If no path is found
