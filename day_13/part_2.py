@@ -83,7 +83,6 @@ def process(lines):
     counter = 0
     for machine in machines:
         A, B = solve_AB(machine)
-        print(A, B)
         if A.is_integer() and B.is_integer():
             counter += A * 3 + B
 
