@@ -91,4 +91,4 @@ def process(lines):
 
 
 print("Sample output:", process(sample_lines))
-# print("Answer:", process(input_lines))
+print("Answer:", process(input_lines))
