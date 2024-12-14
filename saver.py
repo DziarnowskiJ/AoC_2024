@@ -90,6 +90,11 @@ print("Answer:", process(input_lines))
     readme = f"""\n## [{get_title(day, year)}](https://adventofcode.com/{year}/day/{day})
 
 ```
+┌─┬─┐   ╔═╦═╗
+│■│█│   ║●║ ║ 
+├─┼─┤   ╠═╬═╣
+│□│¯│   ║○║ ║
+└─┴─┘   ╚═╩═╝
 Part 1:
 
 Part 2:
