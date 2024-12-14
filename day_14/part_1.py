@@ -40,6 +40,7 @@ def move_robot(robot, grid_bounds, times):
 
     robot.point = new_point
 
+
 def process(lines, ne, sw):
     grid, robots = get_grid(lines, ne, sw)
     grid_bounds = (ne, sw)
@@ -68,8 +69,6 @@ def process(lines, ne, sw):
 
     total = quad['nw'] * quad['sw'] * quad['ne'] * quad['se']
     return total
-
-
 
 
 print("Sample output:", process(sample_lines, origin, Point(10, -6)))

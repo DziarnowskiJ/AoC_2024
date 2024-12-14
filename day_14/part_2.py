@@ -7,7 +7,7 @@ base_path = '..' if platform.python_implementation() == 'CPython' else '.'
 with open(base_path + '/inputs/real/input_day_14.txt', 'r') as file:
     input_lines = [i.rstrip("\n") for i in file.readlines()]
 
-with open(base_path + '/inputs/sample/sample_input_day_14.txt', 'r') as file:
+with open(base_path + '/inputs/sample/sample_input_day_14_2.txt', 'r') as file:
     sample_lines = [i.rstrip("\n") for i in file.readlines()]
 
 
@@ -52,11 +52,12 @@ def process(lines, ne, sw):
             move_robot(robot, grid_bounds, 1)
 
         image = points_to_text({r.point: '#' for r in robots.values()})
-        if len(re.findall(r"#######", image)) > 0:
+        if len(re.findall(r"#########", image)) > 0:
             print(image)
             break
 
     return counter
 
 
+print("Sample output:", process(sample_lines, origin, Point(10, -6)))
 print("Answer:", process(input_lines, origin, Point(100, -102)))
