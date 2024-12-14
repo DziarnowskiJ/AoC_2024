@@ -13,25 +13,25 @@ from first list occurs in the second one and multiplying item by that value.
 
 ```
 Part 1:
-3   4             1   3              2
-4   3             2   3              1
-2   5 -- sort --> 3   3 -- abs() --> 0
-1   3             3   4              1
-3   9             3   5              2
-3   3             4   9              5
-                                   +---
-                                    11
+3   4         1   3            2
+4   3  sort   2   3   abs()    1
+2   5 ------> 3   3 -------->  0
+1   3         3   4            1
+3   9         3   5            2
+3   3         4   9            5
+                             +---
+                              11
 Total = 11
 
 Part 2:
-3   4             1   0              0
-4   3             2   0              0
-2   5 -- calc --> 3   3 -- mul() --> 9
-1   3             3   3              9
-3   9             3   3              9
-3   3             4   1              4
-                                   +---
-                                    31
+3   4         1   0           0
+4   3  calc   2   0   mul()   0
+2   5 ------> 3   3 --------> 9
+1   3         3   3           9
+3   9         3   3           9
+3   3         4   1           4
+                            +---
+                             31
                                     
 Total = 31                                    
 ```
@@ -363,19 +363,19 @@ Part two instead of the perimeter asked for a number of sides.
 
 ```
            
-                                            +-+-+-+-+      size 4    +-+      size 1                
-                                            |A A A A|  --> per. 10   |D|  --> per. 4  
-                    ┌───────┐               +-+-+-+-+      sides 4   +-+      sides 4        
-                    |A A A A|                                                                         
-AAAA                ├───┬─┬─┤               +-+-+                      +-+                  
-BBCD    regions     |B B|C|D|    values     |B B|      size 4          |C|        size 4 
-BBCC   --------->   |   | └─┤   -------->   +   +  --> per. 8          + +-+  --> per. 10        
-EEEC                |B B|C C|               |B B|      sides 4         |C C|      sides 8                    
-                    └───┴─┐ |               +-+-+                      +-+ +                    
-                    |E E E|C|                                            |C|                    
-                    └─────┴─┘               +-+-+-+      size 3          +-+                    
-                                            |E E E|  --> per. 6                               
-                                            +-+-+-+      sides 4                                     
+                                            ┌─┬─┬─┬─┐      size 4    ┌─┐      size 1                
+                                            │A A A A│  --> per. 10   │D│  --> per. 4  
+                    ┌───────┐               └─┴─┴─┴─┘      sides 4   └─┘      sides 4        
+                    │A A A A│                                                                         
+AAAA                ├───┬─┬─┤               ┌─┬─┐                      ┌─┐                  
+BBCD    regions     │B B│C│D│    values     │B B│      size 4          │C│        size 4 
+BBCC   --------->   │   │ └─┤   -------->   ├   ┤  --> per. 8          ├ ┼─┐  --> per. 10        
+EEEC                │B B│C C│               │B B│      sides 4         │C C│      sides 8                    
+                    ├───┴─┐ │               └─┴─┘                      └─┼ ┤                    
+                    │E E E│C│                                            │C│                    
+                    └─────┴─┘               ┌─┬─┬─┐      size 3          └─┘                    
+                                            │E E E│  --> per. 6                               
+                                            └─┴─┴─┘      sides 4                                     
 ```
 
 ## [Day 13: Claw Contraption](https://adventofcode.com/2024/day/13)
@@ -414,4 +414,77 @@ Prize: X=10000000008400, Y=10000000005400   --> Not achievable for {A, B ∈ Z}
 Button A: X+26, Y+66
 Button B: X+67, Y+21
 Prize: X=10000000012748, Y=10000000012176   --> A = 118679050709, B = 103199174542
+```
+
+## [Day 14: Restroom Redoubt](https://adventofcode.com/2024/day/14)
+Moving points around the grid and grid-image analysis
+
+Exercise presented a list of coordinates and vectors in which to move at each step.
+If the step lands outside the grid's boundaries, the point it moved to the other side 
+of the gird and continues the movement. 
+
+The first part required to perform _100_ steps from each starting point and determine
+number of points that end in each quadrant.  
+Second part stated that after some number of steps, the majority of points will create
+an image of a Christmas tree - the goal was to find after how many steps that happens.
+
+```
+Example:
+p=1,2 v=1,-2
+
+.....           .....           .....            .....            .#...
+.....   step    .....   step    ...#.    step    .....    step    .....
+.#...  ------>  .....  ------>  .....   ------>  .....   ------>  .....
+.....           .....           .....            ....#            .....
+.....           ..#..           .....            .....            .....
+
+
+Part 1:
+                                                         ┌─────┬─────┐
+1.12.......                  ......2..1.                 │.....│2..1.│
+...........                  ...........                 │.....│.....│           ┌─┬─┐
+...........    100 steps     1..........    quadrants    │1....│.....│   sums    │1│3│
+......11.11   ----------->   .11........   ----------->  ├─────┼─────┤  ------>  ├─┼─┤              
+1.1........                  .....1.....                 │.....│.....│           │4│1│
+.........1.                  ...12......                 │...12│.....│           └─┴─┘
+.......1...                  .1....1....                 │.1...│1....│
+                                                         └─────┴─────┘
+* Numbers on the grid represent 
+  amount of points at that place
+                                                        
+Part 2:
+Image to find:
+###############################
+#                             #
+#                             #
+#                             #
+#                             #
+#              #              #
+#             ###             #
+#            #####            #
+#           #######           #
+#          #########          #
+#            #####            #
+#           #######           #
+#          #########          #
+#         ###########         #
+#        #############        #
+#          #########          #
+#         ###########         #
+#        #############        #
+#       ###############       #
+#      #################      #
+#        #############        #
+#       ###############       #
+#      #################      #
+#     ###################     #
+#    #####################    #
+#             ###             #
+#             ###             #
+#             ###             #
+#                             #
+#                             #
+#                             #
+#                             #
+###############################
 ```
