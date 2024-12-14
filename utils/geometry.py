@@ -2,6 +2,8 @@ from enum import IntEnum
 from typing_extensions import Self
 
 
+###################################################### DIRECTIONS ######################################################
+
 # compass points
 class Direction(IntEnum):
     N = 0
@@ -25,6 +27,14 @@ def turn_left(direction: Direction) -> Direction:
 # the direction immediately to the right
 def turn_right(direction: Direction) -> Direction:
     return Direction((direction + 2) % 8)
+
+
+# Opposite direction
+def get_opposite_direction(direction: Direction) -> Direction:
+    return Direction((direction + 4) % 8)
+
+
+######################################################## POINT #########################################################
 
 
 # x and y coordinates in two-dimensional space
@@ -108,27 +118,11 @@ def get_one_step_direction(point1: Point, point2: Point) -> Direction | None:
     return direction_map.get(diff.key)
 
 
-def get_opposite_direction(direction: Direction) -> Direction:
-    return Direction((direction + 4) % 8)
+def point_neighbours(point: Point, diagonal: bool = True) -> list[Point]:
+    return [point + one_step(Direction(i)) for i in Direction if diagonal or i % 2 == 0]
 
 
-def read_grid(text_grid: str, origin: Direction = Direction.NE) -> [(Point, str)]:
-    lines_of_text = text_grid.split('\n')
-    if origin == Direction.NE:
-        return [(Point(x, -y), c) for y, line in enumerate(lines_of_text)
-                for x, c in enumerate(line)]
-    elif origin == Direction.NW:
-        return [(Point(-x, -y), c) for y, line in enumerate(lines_of_text)
-                for x, c in enumerate(reversed(line))]
-    elif origin == Direction.SE:
-        return [(Point(x, y - 1), c) for y, line in enumerate(reversed(lines_of_text))
-                for x, c in enumerate(line)]
-    elif origin == Direction.SW:
-        return [(Point(-x, y - 1), c) for y, line in enumerate(reversed(lines_of_text))
-                for x, c in enumerate(reversed(line))]
-    else:
-        raise Exception("origin can only be NE, NW, SE or SW")
-
+######################################################### GRID #########################################################
 
 def grid_dict(text_grid: str, origin: Direction = Direction.NE) -> dict[Point, str]:
     lines_of_text = text_grid.split('\n')
@@ -148,64 +142,21 @@ def grid_dict(text_grid: str, origin: Direction = Direction.NE) -> dict[Point, s
         raise Exception("origin can only be NE, NW, SE or SW")
 
 
-def get_neighbours(point: Point, grid: dict[Point, str],
-                   diagonal: bool = True) -> list[str]:
-    n = point + one_step(Direction.N)
-    ne = point + one_step(Direction.NE)
-    e = point + one_step(Direction.E)
-    se = point + one_step(Direction.SE)
-    s = point + one_step(Direction.S)
-    sw = point + one_step(Direction.SW)
-    w = point + one_step(Direction.W)
-    nw = point + one_step(Direction.NW)
-
-    def add_to_neighbour(p, g):
-        return g[p] if is_in_grid(p, g) else None
-
-    neighbours = list()
-    neighbours.append(add_to_neighbour(n, grid))
-    neighbours.append(add_to_neighbour(e, grid))
-    neighbours.append(add_to_neighbour(s, grid))
-    neighbours.append(add_to_neighbour(w, grid))
-    if diagonal:
-        neighbours.append(add_to_neighbour(ne, grid))
-        neighbours.append(add_to_neighbour(nw, grid))
-        neighbours.append(add_to_neighbour(se, grid))
-        neighbours.append(add_to_neighbour(sw, grid))
-
-    return [neighbour for neighbour in neighbours if neighbour is not None]
-
-
 def get_neighbours_dict(point: Point, grid: dict[Point, str],
                         diagonal: bool = True) -> dict[Point, str]:
-    n = point + one_step(Direction.N)
-    ne = point + one_step(Direction.NE)
-    e = point + one_step(Direction.E)
-    se = point + one_step(Direction.SE)
-    s = point + one_step(Direction.S)
-    sw = point + one_step(Direction.SW)
-    w = point + one_step(Direction.W)
-    nw = point + one_step(Direction.NW)
+    return {p: grid[p] for p in point_neighbours(point, diagonal) if is_in_grid(p, grid)}
 
-    neighbours = dict()
-    neighbours[n] = None if not is_in_grid(n, grid) else grid[n]
-    neighbours[e] = None if not is_in_grid(e, grid) else grid[e]
-    neighbours[s] = None if not is_in_grid(s, grid) else grid[s]
-    neighbours[w] = None if not is_in_grid(w, grid) else grid[w]
-    if diagonal:
-        neighbours[ne] = None if not is_in_grid(ne, grid) else grid[ne]
-        neighbours[nw] = None if not is_in_grid(nw, grid) else grid[nw]
-        neighbours[se] = None if not is_in_grid(se, grid) else grid[se]
-        neighbours[sw] = None if not is_in_grid(sw, grid) else grid[sw]
 
-    return {key: value for key, value in neighbours.items() if value is not None}
+def get_neighbours_values(point: Point, grid: dict[Point, str],
+                          diagonal: bool = True) -> list[str]:
+    return [v for v in get_neighbours_dict(point, grid, diagonal).values()]
 
 
 def is_in_grid(point: Point, grid: dict[Point, str]) -> bool:
     return point in grid.keys()
 
 
-def grid_dimensions(grid: dict[Point, str]):
+def grid_dimensions(grid: dict[Point, str]) -> tuple[Point, Point]:
     xs = [p.x for p in grid.keys()]
     ys = [p.y for p in grid.keys()]
 
@@ -215,11 +166,11 @@ def grid_dimensions(grid: dict[Point, str]):
     return top_left, bottom_right
 
 
-def grid_position(char: str, grid: dict[Point, str]):
+def grid_position(char: str, grid: dict[Point, str]) -> list[Point]:
     return [key for key, value in grid.items() if value == char]
 
 
-def points_to_text(grid):
+def points_to_text(grid: dict[Point, str]) -> str:
     # Find the maximum and minimum coordinates to determine the size of the grid
     g_bounds = grid_dimensions(grid)
     max_x = g_bounds[1].x
@@ -242,7 +193,7 @@ def points_to_text(grid):
     return text
 
 
-def empty_grid(nw_point, se_point, char='.'):
+def empty_grid(nw_point: Point, se_point: Point, char: str = '.') -> dict[Point, str]:
     grid = dict()
     for i in range(nw_point.x, se_point.x + 1, 1):
         for j in range(nw_point.y, se_point.y - 1, -1):
