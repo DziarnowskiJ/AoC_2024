@@ -1,5 +1,5 @@
 import re
-from functools import cache, lru_cache
+from functools import cache
 import platform
 
 base_path = '..' if platform.python_implementation() == 'CPython' else '.'
