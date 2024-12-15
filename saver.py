@@ -112,7 +112,7 @@ Part 2:
         with open(save_path_2, "w") as file:
             file.write('')
 
-    with open(readme_path, 'a') as file:
+    with open(readme_path, 'a', encoding="utf-8") as file:
         file.write(readme)
 
 

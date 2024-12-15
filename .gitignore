@@ -1,6 +1,7 @@
 ### Python template
 .env
 inputs/real
+other
 
 .idea/
 
