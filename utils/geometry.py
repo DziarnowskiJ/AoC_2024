@@ -18,6 +18,9 @@ class Direction(IntEnum):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return f'Direction.{self.name}'
+
 
 # the direction immediately to the left
 def turn_left(direction: Direction) -> Direction:
@@ -54,10 +57,10 @@ class Point:
         return (self.x, self.y) < (other.x, other.y)
 
     def __str__(self):
-        return f"Point {self.x} {self.y}"
+        return self.__repr__()
 
     def __repr__(self):
-        return f"Point {self.x} {self.y}"
+        return f"Point({self.x}, {self.y})"
 
     def __sub__(self, other: Self) -> Self:
         return Point(self.x - other.x, self.y - other.y)
