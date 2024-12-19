@@ -562,8 +562,6 @@ Part 2:
 ──────────────────────────────────────────┼──────────────────────────────────────────
 ##############            ##############  │  ##############            ##############
 ##......##..##            ##...[].##..##  │  ##......##..##            ##......##..##
-##...[][]...##   move ^   ##...@.[]...##  │  ##...[][]...##   move ^   ##...[][]...##
-##...@[]....##  ───────>  ##....[]....##  │  ##....[]....##  ───────>  ##....[]....##
 ##..........##            ##..........##  │  ##.....@....##            ##.....@....##
 ##..........##            ##..........##  │  ##..........##            ##..........##
 ##############            ##############  │  ##############            ##############
@@ -576,7 +574,7 @@ Shortest path search
 The requirements of the first part of the challenge were simple - find the shortest path
 between two points, each step adds _1_ to the path's length and each turn adds _1000_.
 
-Second part required finding __all possible shortest paths__ and determining how many nodes 
+Second part required finding __all possible shortest paths__ and determining how many nodes
 are visited when traversing any of them.
 
 ```
@@ -594,6 +592,40 @@ Maze:                           Part 1:                             Part 2:
 █.█.█.███.█.█.█                 █^█.█.███.█v█^█                     █○█○█○███.█○█○█
 █.....█...█.█.█                 █^....█...█v█^█                     █○○○○○█...█○█○█
 █.███.█.█.█.█.█                 █^███.█.█.█v█^█                     █○███.█.█.█○█○█
+```
+Input:          (For space efficiency wrapped in 3 lines)
+┌───┐   ┌──┐
+5,4  │   v   │  v
+4,2  │  3,3  │ 0,4
+4,5  │  2,6  │ 6,4
+3,0  │  5,1  │ 1,1
+2,1  │  1,2  │ 6,1
+6,3  │  5,5  │ 1,0
+2,4  │  2,5  │ 0,5
+1,5  │  6,5  │ 1,6
+0,6  │  1,4  │ 2,0
+└───┘   └───┘
+
+Part 1:
+.......                ...#...               >v.#>>v
+.......     after      ..#..#.   shortest    .v#>^#v
+.......   12 points    ....#..     path      .>>^#v<   
+.......  ----------->  ...#..#  ---------->  ...#v<#
+.......                ..#..#.               ..#v<#.
+.......                .#..#..               .#.v#..
+.......                #.#....               #.#>>>>
+
+Part 2:
+.......                ...#...            ...#...
+.......     after      .##..#.   next     .##..#■
+.......   20 points    .#..#..   point    .#..#..
+.......  ----------->  ...#..#  ------->  ...#..#
+.......                ###..##            ###..##
+.......                .##.###            .##.###
+.......                #.#....            #.#....
+```
+##...[][]...##   move ^   ##...@.[]...##  │  ##...[][]...##   move ^   ##...[][]...##
+##...@[]....##  ───────>  ##....[]....##  │  ##....[]....##  ───────>  ##....[]....##
 █S..█.....█...█                 █S..█.....█>>^█                     █○..█.....█○○○█
 ███████████████                 ███████████████                     ███████████████
 
@@ -657,35 +689,43 @@ First part of the challenge required finding the shortest path through the grid 
 after _some_ number of points have been added. Second part asked to determine the first point
 that will cut off the path to the south-east corner.
 
+
+## [Day 19: Linen Layout](https://adventofcode.com/2024/day/19)
+Arranging items to match patterns.
+
+The challenge involved checking whether a string can be constructed 
+from the supplied tokens. First line of the input file listed all possible
+tokens, while the subsequent lines had the strings that needed to be matched.
+
+Solution for the first part of the challenge required determining how many
+of the supplied strings can be constructed. Second part required not only checking
+_whether_ the string can be constructed but also in _how many different ways_
+
+
 ```
-Input:          (For space efficiency wrapped in 3 lines)
-     ┌───┐   ┌──┐
-5,4  │   v   │  v
-4,2  │  3,3  │ 0,4
-4,5  │  2,6  │ 6,4
-3,0  │  5,1  │ 1,1
-2,1  │  1,2  │ 6,1
-6,3  │  5,5  │ 1,0
-2,4  │  2,5  │ 0,5
-1,5  │  6,5  │ 1,6
-0,6  │  1,4  │ 2,0
- └───┘   └───┘
+Sample input:
+r, wr, b, g, bwu, rb, gb, br
+
+bwurrg
+rrbgbr
+bbrgwb
 
 Part 1:
-.......                ...#...               >v.#>>v
-.......     after      ..#..#.   shortest    .v#>^#v
-.......   12 points    ....#..     path      .>>^#v<   
-.......  ----------->  ...#..#  ---------->  ...#v<#
-.......                ..#..#.               ..#v<#.
-.......                .#..#..               .#.v#..
-.......                #.#....               #.#>>>>
+-- bwurrg --> can be made with bwu, r, r, g
+-- rrbgbr --> can be made with r, rb, g, br
+-- bbrgwb --> impossible
+----> result = 2
 
 Part 2:
-.......                ...#...            ...#...
-.......     after      .##..#.   next     .##..#■
-.......   20 points    .#..#..   point    .#..#..
-.......  ----------->  ...#..#  ------->  ...#..# 
-.......                ###..##            ###..##
-.......                .##.###            .##.###
-.......                #.#....            #.#....
+-- bwurrg --> one possible way:
+                (bwu, r, r, g)
+-- rrbgbr --> six possible ways:
+                (r, r, b, g, b, r)
+                (r, r, b, g, br)
+                (r, r, b, gb, r)
+                (r, rb, g, b, r)
+                (r, rb, g, br)
+                (r, rb, gb, r)
+-- bbrgwb --> still impossible
+----> result = 7
 ```
