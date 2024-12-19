@@ -6,9 +6,6 @@ base_path = '..' if platform.python_implementation() == 'CPython' else '.'
 with open(base_path + '/inputs/real/input_day_17.txt', 'r') as file:
     input_lines = [i.rstrip("\n") for i in file.readlines()]
 
-with open(base_path + '/inputs/sample/sample_input_day_17.txt', 'r') as file:
-    sample_lines = [i.rstrip("\n") for i in file.readlines()]
-
 
 def split_input(lines):
     registers = {
@@ -25,7 +22,9 @@ def get_combo(val, registers):
     return val if val < 4 else registers[val]
 
 
-def run(registers, program):
+def run(registers, program, A):
+    reg = registers.copy()
+    reg[4] = A
     pointer = 0
     out = []
 
@@ -37,31 +36,44 @@ def run(registers, program):
         val = program[pointer + 1]
 
         if op == 0:
-            registers[4] = registers[4] // (2 ** get_combo(val, registers))
+            reg[4] = reg[4] // (2 ** get_combo(val, reg))
         elif op == 1:
-            registers[5] = registers[5] ^ val
+            reg[5] = reg[5] ^ val
         elif op == 2:
-            registers[5] = get_combo(val, registers) % 8
+            reg[5] = get_combo(val, reg) % 8
         elif op == 3:
-            if registers[4] != 0:
+            if reg[4] != 0:
                 pointer = val
                 continue
         elif op == 4:
-            registers[5] = registers[5] ^ registers[6]
+            reg[5] = reg[5] ^ reg[6]
         elif op == 5:
-            out.append(str(get_combo(val, registers) % 8))
+            out.append(get_combo(val, reg) % 8)
         elif op == 6:
-            registers[5] = registers[4] // (2 ** get_combo(val, registers))
+            reg[5] = reg[4] // (2 ** get_combo(val, reg))
         elif op == 7:
-            registers[6] = registers[4] // (2 ** get_combo(val, registers))
+            reg[6] = reg[4] // (2 ** get_combo(val, reg))
         pointer += 2
+
+
+def solve_A(registers, program, pointer, A):
+    results = set()
+
+    if pointer == -1:
+        if program == run(registers, program, A >> 3):
+            results.add(A >> 3)
+
+    for x in range(8):
+        out = run(registers, program, A + x)
+        if out[0] == program[pointer]:
+            results.update(solve_A(registers, program, pointer - 1, ((A + x) << 3)))
+
+    return results
 
 
 def process(lines):
     registers, program = split_input(lines)
-    result = run(registers, program)
-    return ','.join([str(x) for x in result])
+    return min(solve_A(registers, program, len(program) - 1, 0))
 
 
-print("Sample output:", process(sample_lines))
 print("Answer:", process(input_lines))

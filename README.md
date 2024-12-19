@@ -598,3 +598,94 @@ Maze:                           Part 1:                             Part 2:
 ███████████████                 ███████████████                     ███████████████
 
 ```
+
+## [Day 17: Chronospatial Computer](https://adventofcode.com/2024/day/17)
+Basic Processing Language
+
+Challenge's description defined 8 possible 
+operations that could be performed on a set of 7 registers.
+Four of the registers were constant, always returning values 0-3, the three remaining were variable registers _A_, _B_, _C_. 
+A number called the instruction pointer identified the position in the program 
+from which the next opcode would be read. Except for jump instructions, the instruction pointer increases by 2 after each instruction is processed 
+(to move past the instruction's opcode and its operand). If the computer tries to read an opcode past the end of the program, it instead halts
+
+There were two types of operands. The value of a literal operand was the operand itself. Second type of operand was combo, 
+value of it could be found by following these rules:
+- Combo operands __0 through 3__ represent literal __values 0 through 3__.
+- Combo operand __4__ represents the value of __register A.
+- Combo operand __5__ represents the value of __register B__.
+- Combo operand __6__ represents the value of __register C__.
+- Combo operand __7__ is reserved and will __not appear in valid programs__.
+
+Possible operations:
+1) __adv__ -> reg_A = reg_A // 2**combo
+2) __bxl__ -> reg_B = reg_B ^ literal
+3) __bst__ -> reg_B = combo % 8
+4) __jnz__ -> if reg_A != 0: pointer = literal
+5) __out__ -> print(combo % 8)
+6) __bdv__ -> reg_A = reg_B // 2**combo
+7) __cdv__ -> reg_A = reg_C // 2**combo
+
+
+
+
+For part one, the goal was to find the output of the  _program (list of operations)_.
+
+Second part stated that there is a number, that when used at the start for register _A_, 
+returns the copy of the program it was running on. The goal was to find this number. 
+
+```
+Example input:
+Register A: 5
+Register B: 0
+Register C: 0
+
+Program: 0,1,5,4,3,0
+
+Part 1:
+
+
+Part 2:
+```
+
+## [Day 18: RAM Run](https://adventofcode.com/2024/day/18)
+Simple path finding in a grid
+
+Exercise provided the list of points for a 2D grid. Each of these points was added
+one-by-one to the grid and from that time possibly started blocking the path.  
+First part of the challenge required finding the shortest path through the grid (from north-west corner to south-east)
+after _some_ number of points have been added. Second part asked to determine the first point
+that will cut off the path to the south-east corner.
+
+```
+Input:          (For space efficiency wrapped in 3 lines)
+     ┌───┐   ┌──┐
+5,4  │   v   │  v
+4,2  │  3,3  │ 0,4
+4,5  │  2,6  │ 6,4
+3,0  │  5,1  │ 1,1
+2,1  │  1,2  │ 6,1
+6,3  │  5,5  │ 1,0
+2,4  │  2,5  │ 0,5
+1,5  │  6,5  │ 1,6
+0,6  │  1,4  │ 2,0
+ └───┘   └───┘
+
+Part 1:
+.......                ...#...               >v.#>>v
+.......     after      ..#..#.   shortest    .v#>^#v
+.......   12 points    ....#..     path      .>>^#v<   
+.......  ----------->  ...#..#  ---------->  ...#v<#
+.......                ..#..#.               ..#v<#.
+.......                .#..#..               .#.v#..
+.......                #.#....               #.#>>>>
+
+Part 2:
+.......                ...#...            ...#...
+.......     after      .##..#.   next     .##..#■
+.......   20 points    .#..#..   point    .#..#..
+.......  ----------->  ...#..#  ------->  ...#..# 
+.......                ###..##            ###..##
+.......                .##.###            .##.###
+.......                #.#....            #.#....
+```
