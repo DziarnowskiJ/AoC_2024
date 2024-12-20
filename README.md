@@ -592,43 +592,8 @@ Maze:                           Part 1:                             Part 2:
 █.█.█.███.█.█.█                 █^█.█.███.█v█^█                     █○█○█○███.█○█○█
 █.....█...█.█.█                 █^....█...█v█^█                     █○○○○○█...█○█○█
 █.███.█.█.█.█.█                 █^███.█.█.█v█^█                     █○███.█.█.█○█○█
-```
-Input:          (For space efficiency wrapped in 3 lines)
-┌───┐   ┌──┐
-5,4  │   v   │  v
-4,2  │  3,3  │ 0,4
-4,5  │  2,6  │ 6,4
-3,0  │  5,1  │ 1,1
-2,1  │  1,2  │ 6,1
-6,3  │  5,5  │ 1,0
-2,4  │  2,5  │ 0,5
-1,5  │  6,5  │ 1,6
-0,6  │  1,4  │ 2,0
-└───┘   └───┘
-
-Part 1:
-.......                ...#...               >v.#>>v
-.......     after      ..#..#.   shortest    .v#>^#v
-.......   12 points    ....#..     path      .>>^#v<   
-.......  ----------->  ...#..#  ---------->  ...#v<#
-.......                ..#..#.               ..#v<#.
-.......                .#..#..               .#.v#..
-.......                #.#....               #.#>>>>
-
-Part 2:
-.......                ...#...            ...#...
-.......     after      .##..#.   next     .##..#■
-.......   20 points    .#..#..   point    .#..#..
-.......  ----------->  ...#..#  ------->  ...#..#
-.......                ###..##            ###..##
-.......                .##.###            .##.###
-.......                #.#....            #.#....
-```
-##...[][]...##   move ^   ##...@.[]...##  │  ##...[][]...##   move ^   ##...[][]...##
-##...@[]....##  ───────>  ##....[]....##  │  ##....[]....##  ───────>  ##....[]....##
 █S..█.....█...█                 █S..█.....█>>^█                     █○..█.....█○○○█
 ███████████████                 ███████████████                     ███████████████
-
 ```
 
 ## [Day 17: Chronospatial Computer](https://adventofcode.com/2024/day/17)
@@ -659,8 +624,6 @@ Possible operations:
 7) __cdv__ -> reg_A = reg_C // 2**combo
 
 
-
-
 For part one, the goal was to find the output of the  _program (list of operations)_.
 
 Second part stated that there is a number, that when used at the start for register _A_, 
@@ -689,6 +652,38 @@ First part of the challenge required finding the shortest path through the grid 
 after _some_ number of points have been added. Second part asked to determine the first point
 that will cut off the path to the south-east corner.
 
+```
+Input:          (For space efficiency wrapped in 3 lines)
+     ┌───┐   ┌──┐
+5,4  │   v   │  v
+4,2  │  3,3  │ 0,4
+4,5  │  2,6  │ 6,4
+3,0  │  5,1  │ 1,1
+2,1  │  1,2  │ 6,1
+6,3  │  5,5  │ 1,0
+2,4  │  2,5  │ 0,5
+1,5  │  6,5  │ 1,6
+0,6  │  1,4  │ 2,0
+ └───┘   └───┘
+ 
+Part 1:
+.......                ...#...               >v.#>>v
+.......     after      ..#..#.   shortest    .v#>^#v
+.......   12 points    ....#..     path      .>>^#v<   
+.......  ----------->  ...#..#  ---------->  ...#v<#
+.......                ..#..#.               ..#v<#.
+.......                .#..#..               .#.v#..
+.......                #.#....               #.#>>>>
+
+Part 2:
+.......                ...#...            ...#...
+.......     after      .##..#.   next     .##..#■
+.......   20 points    .#..#..   point    .#..#..
+.......  ----------->  ...#..#  ------->  ...#..# 
+.......                ###..##            ###..##
+.......                .##.###            .##.###
+.......                #.#....            #.#....
+```
 
 ## [Day 19: Linen Layout](https://adventofcode.com/2024/day/19)
 Arranging items to match patterns.
@@ -728,4 +723,83 @@ Part 2:
                 (r, rb, gb, r)
 -- bbrgwb --> still impossible
 ----> result = 7
+```
+
+## [Day 20: Race Condition](https://adventofcode.com/2024/day/20)
+Shortest distance between points on a grid path
+
+The problem presented a grid consisting of 4 elements:
+- `.` - path step
+- `#` - wall
+- `S` - start position
+- `E` - end position
+
+There was only one path connecting start and end position, it went through 
+all the steps in the grid. Additionally there was a rule that once during the 
+traversal of the grid it was possible to make a shortcut. This is a special
+condition that allowed to treat wall element (_#_) as a regular path (_._) for 
+two steps. 
+
+For part one, the goal was to find the number of all possible shortcuts
+that allowed to shorten the path to the end by at least _100_ steps.
+Part two modified the length on the shortcut such that instead of 2 steps, it 
+allowed to make at most 20.
+
+```
+Original grid:
+###############
+#...#...#.....#
+#.#.#.#.#.###.#
+#S#...#.#.#...#
+#######.#.#.###
+#######.#.#...#
+#######.#.###.#
+###..E#...#...#
+###.#######.###
+#...###...#...#
+#.#####.#.###.#
+#.#...#.#.#...#
+#.#.#.#.#.#.###
+#...#...#...###
+###############
+
+Part 1:
+
+Shortcut saving      Shortcut saving      Shortcut saving
+12 steps:            64 steps:            38 steps:      
+███████████████      ███████████████      ███████████████     
+█>>v█>>>12>>>v█      █>>v█>>v█     █      █>>v█>>v█     █  
+█^█v█^█ █ ███v█      █^█v█^█v█ ███ █      █^█v█^█v█ ███ █  
+█S█>>^█ █ █v<<█      █S█>>^█v█ █   █      █S█>>^█v█ █   █  
+███████ █ █v███      ███████v█ █ ███      ███████v█ █ ███  
+███████ █ █>>v█      ███████v█ █   █      ███████v█ █   █  
+███████ █ ███v█      ███████v█ ███ █      ███████v█ ███ █  
+███>>E█   █v<<█      ███>>E█>>>12  █      ███>>E█>v █   █  
+███^███████v███      ███^███████v███      ███^████1██ ███  
+█>>^███v<<█>>v█      █>>^███v<<█>>v█      █>>^███v2 █   █  
+█^█████v█^███v█      █^█████v█^███v█      █^█████v█ ███ █  
+█^█v<<█v█^█v<<█      █^█v<<█v█^█v<<█      █^█v<<█v█ █   █  
+█^█v█^█v█^█v███      █^█v█^█v█^█v███      █^█v█^█v█ █ ███  
+█^<<█^<<█^<<███      █^<<█^<<█^<<███      █^<<█^<<█   ███  
+███████████████      ███████████████      ███████████████  
+
+Part 2:
+
+Shortcut saving
+76 steps:      
+███████████████
+█   █   █     █
+█ █ █ █ █ ███ █
+█S█   █ █ █   █
+█1█████ █ █ ███
+█2█████ █ █   █
+█3█████ █ ███ █
+█456>E█   █   █
+███ ███████ ███
+█   ███   █   █
+█ █████ █ ███ █
+█ █   █ █ █   █
+█ █ █ █ █ █ ███
+█   █   █   ███
+███████████████
 ```
