@@ -803,3 +803,45 @@ Shortcut saving
 █   █   █   ███
 ███████████████
 ```
+
+## [Day 21: Keypad Conundrum](https://adventofcode.com/2024/day/21)
+Nested keypad usage simulation
+
+This challenge presented a problem of using one controller with another one.
+The task described in the exercise was to press the sequence of numbers on the _output controller_.
+However, specifying which button is pressed was done with _directional controller_. To complicate
+the task even more, button presses on that _directional controller_ were controlled by another _directional controller_, 
+which in turn was controlled by yet another one. The 'chain' of controllers consited of
+one _input (directional) controller_, followed by two _directional controllers_ and ending with _output controller_.
+
+The first part of the task required finding the number of presses required to make on the input controller to force the 
+output controller to print out a specified sequence of numbers.
+The second part of the exercises extended the number of directional controllers to 25, causing the number of 
+button presses to be in the magnitude of few billions.
+
+
+```
+Output            Directional     
+controller        controller                     
+┌───┬───┬───┐         ┌───┬───┐                         
+│ 7 │ 8 │ 9 │         │ ^ │ A │                              
+├───┼───┼───┤     ┌───┼───┼───┤                                 
+│ 4 │ 5 │ 6 │     │ < │ v │ > │                                 
+├───┼───┼───┤     └───┴───┴───┘                                 
+│ 1 │ 2 │ 3 │                   
+└───┼───┼───┤         
+    │ 0 │ A │     
+    └───┴───┘
+
+Flow of operations:
+User input        --> <vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A
+Controller 1      --> v<<A>>^A<A>AvA<^AA>A<vAAA>^A
+Controller 2      --> <A^A>^^AvvvA
+Output Controller --> 029A
+
+Effect of user input on controllers:
+User input        --> <vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A
+Controller 1      -->   v <<   A >>  ^ A   <   A > A  v  A   <  ^ AA > A   < v  AAA >  ^ A
+Controller 2      -->          <       A       ^   A     >        ^^   A        vvv      A
+Output Controller -->                  0           2                   9                 A
+```
