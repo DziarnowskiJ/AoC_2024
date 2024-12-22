@@ -4,7 +4,7 @@ This is my repository for the annual [**Advent of Code**](https://adventofcode.c
 
 # Notes on each day's challenge
 ## [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1)
-The problem considered simple operations on lists.
+Simple operations on lists
 
 First part required to find the absolute difference between items at the 
 same index in two sorted lists.
@@ -37,7 +37,7 @@ Total = 31
 ```
 
 ## [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2)
-Problem consisted of comparing values inside each list.
+Comparing values inside each list
 
 First part of the exercises required checking whether the list is in order (either ascending or descending)
 and each item in the list differs by at least 1 and at most 3 from the adjacent one.   
@@ -56,7 +56,7 @@ Part 2:
 ```
 
 ## [Day 3: Mull It Over](https://adventofcode.com/2024/day/3)
-Challenge required extracting values based on regex.
+Extracting values based on regex
 
 First part of the challenge consisted of extracting parts that had a 
 form of `mul(X,Y)` where _X_ and _Y_ are 1-3 digit numbers. Then _X_ and _Y_ in each
@@ -80,7 +80,7 @@ Result: 2*4 + 8*5 = 48
 ```
 
 ## [Day 4: Ceres Search](https://adventofcode.com/2024/day/4)
-Task consisted of searching elements in a grid 
+Searching elements in a grid 
 
 First part of the task was a crossword puzzle. The only word to find was the phrase `XMAS`.
 The goal was to find the number of all instances of that word, knowing that it can be written
@@ -112,7 +112,7 @@ Analysis and custom sort for list
 Input for the challenge was split into two parts:
 - List of order rules in form of `X|Y` determining that if both
 _X_ and _Y_ appear in the list, _X_ has to be before _Y_
-- Lines to perform operations on - `X,Y,Z` 
+- Lines to perform operations on - `X,Y,Z`
 
 First part of the exercise required to analyse each line and determine
 whether they are following the proper order and follow all rules.
@@ -844,4 +844,61 @@ User input        --> <vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^
 Controller 1      -->   v <<   A >>  ^ A   <   A > A  v  A   <  ^ AA > A   < v  AAA >  ^ A
 Controller 2      -->          <       A       ^   A     >        ^^   A        vvv      A
 Output Controller -->                  0           2                   9                 A
+```
+
+## [Day 22: Monkey Market](https://adventofcode.com/2024/day/22)
+Generating sequences
+
+The problem explained the rules to generate a sequence of numbers - _secrets_. Each 
+new value depended on the previous item and was determined by performing a set of operations:
+1) multiply _secret_ by 64
+2) divide it by 32 and round down to integer
+3) multiply it by 2048
+
+Additionally, each step was followed by 2 operations - mixing and pruning
+- mixing - bitwise XOR of given value and secret number 
+- pruning - secret number modulo 16777216
+
+So to create a new secret following operations had to be performed:
+```
+step_1 = old_secret * 64
+mix_step_1 = step_1 ^ old_secret
+prune_step_1 = mix_step_1 % 16777216
+
+step_2 = prune_step_1 // 32
+mix_step_2 = step_2 ^ prune_step_1
+prune_step_2 = mix_step_2 % 16777216
+
+step_3 = prune_step_2 * 2048
+mix_step_3 = step_3 ^ prune_step_2
+prune_step_3 = mix_step_3 % 16777216
+
+new secret = prune_step_3
+```
+
+The first part of the challenge was finding the **_2000th_** secret for each of the provided starting numbers.
+
+Second part redefined the exercise by interconnecting sequences and introducing _price_ - the _ones_ digit of the secret.
+From each sequence only one price could be chosen and the goal was to maximise the sum of those prices. However,
+determining which price is chosen depended on the **singular** list of four consecutive price changes that was used **across 
+all sequences**.
+
+
+```
+  secrets   │   price   │   change     
+────────────┼───────────┼────────────
+      123   │     3     │    ─────
+ 15887950   │     0     │     -3
+ 16495136   │     6     │      6
+   527345   │     5     │     -1
+   704524   │     4     │     -1
+  1553684   │     4     │      0
+ 12683156   │     6     │      2
+ 11100544   │     4     │     -2
+ 12249484   │     4     │      0
+  7753432   │     2     │     -2
+  
+Best price occurs after sequence -1, -1, 0, 2
+* However that might not be the case for other sequences
+and optimal change sequence might be different
 ```
