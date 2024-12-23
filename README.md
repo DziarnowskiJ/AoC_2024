@@ -902,3 +902,13 @@ Best price occurs after sequence -1, -1, 0, 2
 * However that might not be the case for other sequences
 and optimal change sequence might be different
 ```
+
+## [Day 23: LAN Party](https://adventofcode.com/2024/day/23)
+Analyzing graph structure
+
+The exercise presented a list of connections between nodes creating a graph. Each
+node was uniquely marked with 2 letters. 
+The first part of the challenge required finding all sets of 3 nodes that are
+fully connected to each other. And out of them, selecting only these which had 
+at least one node starting with letter _t_.
+Second part asked for the biggest set of nodes in which all of them where fully connected.
