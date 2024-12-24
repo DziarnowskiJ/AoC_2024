@@ -912,3 +912,103 @@ The first part of the challenge required finding all sets of 3 nodes that are
 fully connected to each other. And out of them, selecting only these which had 
 at least one node starting with letter _t_.
 Second part asked for the biggest set of nodes in which all of them where fully connected.
+
+## [Day 24: Crossed Wires](https://adventofcode.com/2024/day/24)
+Recursive binary operations
+
+The problem presented a list of initial states of some _wires_ 
+(marked with a letter and two-digit number). Additionally list of **_AND_**, **_XOR_** and **_OR_**
+_boolean logic gates_, determined the result of remaining _wires_. 
+
+The goal for first part, was to find the values of all wires starting with letter `z`, 
+sort them in descending order based on the number from _wire's_ name and convert resulting 
+number to base 10.
+
+In part two it was stated that the values of _wires_ starting with `x` and `y` are actually 
+numbers in binary and result calculated with the method from part 1 is supposed to be equal to `x + y`. 
+To achieve it, _4_ logic gates had to be swapped.
+
+For example, set of gates<br>
+`x00 AND x01 -> z01`<br>
+`x03 AND x04 -> z02`<br>
+would become<br>
+`x00 AND x01 -> z02`<br>
+`x03 AND x04 -> z01`
+
+The answer for part two was the list of swapped gates in alphabetical order - `z01,z02`
+
+```
+Sample input:
+x00: 0
+x01: 1
+x02: 0
+x03: 1
+x04: 0
+x05: 1
+y00: 0
+y01: 0
+y02: 1
+y03: 1
+y04: 0
+y05: 1
+
+x00 AND y00 -> z05
+x01 AND y01 -> z02
+x02 AND y02 -> z01
+x03 AND y03 -> z03
+x04 AND y04 -> z04
+x05 AND y05 -> z00
+
+Part 1:
+
+x00 AND y00 -> z05      --> 0 & 0 = 0
+x01 AND y01 -> z02      --> 1 & 0 = 0
+x02 AND y02 -> z01      --> 0 & 1 = 0
+x03 AND y03 -> z03      --> 1 & 1 = 1
+x04 AND y04 -> z04      --> 0 & 0 = 0
+x05 AND y05 -> z00      --> 1 & 1 = 1
+
+Results:                                      Sorted:
+┌─────┬─────┬─────┬─────┬─────┬─────┐         ┌─────┬─────┬─────┬─────┬─────┬─────┐
+│ z05 │ z02 │ z01 │ z03 │ z04 │ z00 │   -->   │ z05 │ z04 │ z03 │ z02 │ z01 │ z00 │
+├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
+│  0  │  0  │  0  │  1  │  0  │  1  │         │  0  │  0  │  1  │  0  │  0  │  1  │
+└─────┴─────┴─────┴─────┴─────┴─────┘         └─────┴─────┴─────┴─────┴─────┴─────┘
+
+Conversion:
+┌────────┬─────────┐
+│ Binary │ Base 10 │
+├────────┼─────────┤
+│ 001001 │    9    │
+└────────┴─────────┘
+
+Part 2:
+
+X value:                                Conversion:
+┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌────────┬─────────┐
+│ x05 │ x04 │ x03 │ x02 │ x01 │ x00 │   │ Binary │ Base 10 │
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├────────┼─────────┤    ─┐
+│  1  │  0  │  1  │  0  │  1  │  0  │   │ 101010 │   42    │     │
+└─────┴─────┴─────┴─────┴─────┴─────┘   └────────┴─────────┘     │      ┌─────────┬─────────┐
+                                                                 │      │ Base 10 │ Binary  │
+Y value:                                Conversion:              ├──>   ├─────────┼─────────┤
+┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌────────┬─────────┐     │      │   86    │ 1010110 │
+│ x05 │ x04 │ x03 │ x02 │ x01 │ x00 │   │ Binary │ Base 10 │     │      └─────────┴─────────┘
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├────────┼─────────┤    ─┘   
+│  1  │  0  │  1  │  1  │  0  │  0  │   │ 101010 │   44    │
+└─────┴─────┴─────┴─────┴─────┴─────┘   └────────┴─────────┘
+
+Investigation*
+┌──────────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+│ Bit      │ z06 │ z05 │ z04 │ z03 │ z02 │ z01 │ z00 │
+├──────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│ Expected │  1  │  0  │  1  │  0  │  1  │  1  │  0  │  --> differences on bits z00, z01, z02, z05 
+├──────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤           └> swap something responsible          
+│ Actual*  │  1  │  1  │  1  │  0  │  0  │  1  │  1  │              for creation of these bits
+└──────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+
+
+* Sample input behaved differently to the actual input,
+  to properly demonstrate the problem different --Actual-- value was used 
+
+```
