@@ -931,7 +931,7 @@ To achieve it, _4_ logic gates had to be swapped.
 For example, set of gates<br>
 `x00 AND x01 -> z01`<br>
 `x03 AND x04 -> z02`<br>
-would become<br>
+after the swap would become<br>
 `x00 AND x01 -> z02`<br>
 `x03 AND x04 -> z01`
 
@@ -1011,4 +1011,58 @@ Investigation*
 * Sample input behaved differently to the actual input,
   to properly demonstrate the problem different --Actual-- value was used 
 
+```
+
+## [Day 25: Code Chronicle](https://adventofcode.com/2024/day/25)
+Simple search on product of two lists
+
+The last challenge required to properly parse the input to split it into _keys_ and _locks_.
+Each structure was consisting of 7 lines of `.` and `#` characters. _Key_ was determined by 
+having its last line made entirely of `#`, while the lock by having its first line of these characters.
+
+The goal of the puzzle was to find the number of unique combinations of key-lock pairs where 
+both structures didn't overlap each other (so where the key could fit into the lock). 
+
+```
+Example locks:
+[05343]    [12054]
+ #####      #####
+ .####      ##.##
+ .####      .#.##
+ .####      ...##
+ .#.#.      ...#.
+ .#...      ...#.
+ .....      .....
+
+Example keys:
+ .....      .....      .....
+ █....      .....      .....
+ █....      █.█..      .....
+ █...█      ███..      █....
+ █.█.█      ███.█      █.█..
+ █.███      ███.█      █.█.█
+ █████      █████      █████
+[50214]    [43402]    [30201]
+
+Part 1:
+
+[12054]
+ #####
+ ##.##
+ .#.##
+ █..##   --> No overlap - key fits
+ █.█#.
+ █.█#█
+ █████
+[30201]
+
+[05343]
+ ##### 
+ .####  
+ █#X## 
+ █XX##   --> Overlap - key doesn't fit
+ █X█#█ 
+ █X█.█ 
+ █████ 
+[43402]
 ```
