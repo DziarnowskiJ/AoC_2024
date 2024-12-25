@@ -101,8 +101,8 @@ Part 2:
 ```
 """
 
-    if not os.path.exists(f"day_{day}"):
-        os.makedirs(f"day_{day}")
+    if not os.path.exists(f"day_{day:02d}"):
+        os.makedirs(f"day_{day:02d}")
 
     if not os.path.exists(save_path):
         with open(save_path, "w") as file:
