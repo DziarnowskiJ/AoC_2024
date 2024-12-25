@@ -917,44 +917,44 @@ Second part asked for the biggest set of nodes in which all of them where fully 
 %%{ init: { 'flowchart': { 'curve': 'basis' } } }%%
 graph LR;
     classDef fullyConn stroke:#F00
-    ka((ka)):::fullyConn---co((co)):::fullyConn;
+    ka((ka)):::fullyConn<--->co((co)):::fullyConn;
     linkStyle 0 stroke:gold, stroke-width:4px
-    ka((ka)):::fullyConn---de((de)):::fullyConn;
+    ka((ka)):::fullyConn<--->de((de)):::fullyConn;
     linkStyle 1 stroke:gold, stroke-width:4px
-    ta((ta)):::fullyConn---co((co)):::fullyConn;
+    ta((ta)):::fullyConn<--->co((co)):::fullyConn;
     linkStyle 2 stroke:gold, stroke-width:4px
-    ta((ta)):::fullyConn---ka((ka)):::fullyConn;
+    ta((ta)):::fullyConn<--->ka((ka)):::fullyConn;
     linkStyle 3 stroke:gold, stroke-width:4px
-    de((de)):::fullyConn---co((co)):::fullyConn;
+    de((de)):::fullyConn<--->co((co)):::fullyConn;
     linkStyle 4 stroke:gold, stroke-width:4px
-    de((de)):::fullyConn---ta((ta)):::fullyConn;
+    de((de)):::fullyConn<--->ta((ta)):::fullyConn;
     linkStyle 5 stroke:gold, stroke-width:4px
-    kh((kh))---tc((tc));
-    qp((qp))---kh((kh));
-    de((de))---cg((cg));
-    yn((yn))---aq((aq));
-    qp((qp))---ub((ub));
-    cg((cg))---tb((tb));
-    vc((vc))---aq((aq));
-    tb((tb))---ka((ka));
-    wh((wh))---tc((tc));
-    yn((yn))---cg((cg));
-    kh((kh))---ub((ub));
-    tc((tc))---td((td));
-    tb((tb))---wq((wq));
-    wh((wh))---td((td));
-    td((td))---qp((qp));
-    aq((aq))---cg((cg));
-    wq((wq))---ub((ub));
-    ub((ub))---vc((vc));
-    wq((wq))---aq((aq));
-    wq((wq))---vc((vc));
-    wh((wh))---yn((yn));
-    kh((kh))---ta((ta));
-    co((co))---tc((tc));
-    wh((wh))---qp((qp));
-    tb((tb))---vc((vc));
-    td((td))---yn((yn));
+    kh((kh))<--->tc((tc));
+    qp((qp))<--->kh((kh));
+    de((de))<--->cg((cg));
+    yn((yn))<--->aq((aq));
+    qp((qp))<--->ub((ub));
+    cg((cg))<--->tb((tb));
+    vc((vc))<--->aq((aq));
+    tb((tb))<--->ka((ka));
+    wh((wh))<--->tc((tc));
+    yn((yn))<--->cg((cg));
+    kh((kh))<--->ub((ub));
+    tc((tc))<--->td((td));
+    tb((tb))<--->wq((wq));
+    wh((wh))<--->td((td));
+    td((td))<--->qp((qp));
+    aq((aq))<--->cg((cg));
+    wq((wq))<--->ub((ub));
+    ub((ub))<--->vc((vc));
+    wq((wq))<--->aq((aq));
+    wq((wq))<--->vc((vc));
+    wh((wh))<--->yn((yn));
+    kh((kh))<--->ta((ta));
+    co((co))<--->tc((tc));
+    wh((wh))<--->qp((qp));
+    tb((tb))<--->vc((vc));
+    td((td))<--->yn((yn));
     
     
     
